@@ -1,5 +1,5 @@
 <%= issue_fields_rows do |rows|
   unless @issue.disabled_core_fields.include?('due_date')
-      rows.right l(:field_recipient_email), @issue.recipient_email, :class => ':recipient_email'
+      rows.right l(:field_recipient_email), TechMailer.extract_email_to_array(@issue.recipient_email).join(', '), :class => ':recipient_email'
   end
 end %>

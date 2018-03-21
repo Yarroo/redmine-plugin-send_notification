@@ -1,10 +1,12 @@
 <%= labelled_fields_for :issue, @issue do |f| %>
-  <div class="client_email_form_container">
-    <p class="client_email_form">
-      <% if @issue.safe_attribute? 'subject' %>
-      <p><%= f.text_field :recipient_email, :size => 80, :maxlength => 255 %></p>
-      <% end %>
-    </p>
+  <div class="recipient_email_form_container">
+    <% if @issue.safe_attribute? 'subject' %>
+      <p><%= f.select :recipient_email,
+                      options_from_collection_for_select(ActiveDirectoryUser.all, :mail, :display_name, TechMailer.extract_email_to_array(@issue.recipient_email)),{},
+                      {class: "recipient_email_multiple_select", multiple: true, size: 255}
+      %></p>
+    <% end %>
   </div>
 <% end %>
-
+<%= javascript_include_tag 'init.js', plugin: :send_notification %>
+<%= stylesheet_link_tag 'recipient_email.css', plugin: :send_notification %>

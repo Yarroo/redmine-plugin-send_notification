@@ -1,0 +1,8 @@
+.recipient_email_form_container .select2{
+    width: 90% !important;
+}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: #5897fb;
+    color: #333333 !important;
+}
