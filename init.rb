@@ -16,6 +16,7 @@ Redmine::Plugin.register :send_notification do
   author_url 'https://github.com/Yarroo'
   requires_redmine version_or_higher: '3.4'
 
-  settings partial: 'settings/send_notification'
+  settings partial: 'settings/send_notification',
+           default: { ldap_use: 0 }
 end
 

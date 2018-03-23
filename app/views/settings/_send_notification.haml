@@ -1,49 +1,71 @@
+- defaults = Redmine::Plugin::registered_plugins[:send_notification].settings[:default]
+- settings =  Setting.plugin_send_notification || {}
+- @settings = settings || defaults
+
 %h3
   =t('label_status_settings')
 %p
-  - current_filter = Setting.plugin_send_notification && Setting.plugin_send_notification.fetch('issue_status_confirmed_id', 0)
+  - current_filter = @settings.fetch('issue_status_confirmed_id', 0)
   %label{for: 'settings_issue_status_confirmed_id]'}= t('label_issue_status_confirmed')
   = select_tag 'settings[issue_status_confirmed_id]', options_from_collection_for_select(IssueStatus.sorted.to_a, 'id', 'name', current_filter)
 %p
-  - current_filter = Setting.plugin_send_notification && Setting.plugin_send_notification.fetch('issue_status_completed_id', 0)
+  - current_filter = @settings.fetch('issue_status_completed_id', 0)
   %label{for: 'settings_issue_status_completed_id'}= t('label_issue_status_completed')
   = select_tag 'settings[issue_status_completed_id]', options_from_collection_for_select(IssueStatus.sorted.to_a, 'id', 'name', current_filter)
 %p
-  - current_filter = Setting.plugin_send_notification && Setting.plugin_send_notification.fetch('issue_status_in_work_id', 0)
+  - current_filter = @settings.fetch('issue_status_in_work_id', 0)
   %label{for: 'settings_issue_status_in_work_id'}= t('label_issue_status_in_work')
   = select_tag 'settings[issue_status_in_work_id]', options_from_collection_for_select(IssueStatus.sorted.to_a, 'id', 'name', current_filter)
 %p
-  - current_filter = Setting.plugin_send_notification && Setting.plugin_send_notification.fetch('issue_status_in_stop_id', 0)
+  - current_filter = @settings.fetch('issue_status_in_stop_id', 0)
   %label{for: 'settings_issue_status_in_stop_id'}= t('label_issue_status_in_stop')
   = select_tag 'settings[issue_status_in_stop_id]', options_from_collection_for_select(IssueStatus.sorted.to_a, 'id', 'name', current_filter)
 
-%h3
-  =t('label_ldap_setting')
-
-- @s =  Setting.plugin_send_notification || {}
-
 %p
-  %label{for: 'settings_ldap_host'}= t('label_ldap_host')
-  = text_field_tag 'settings[ldap_host]', @s.fetch('ldap_host', ""), :required => true
-%p
-  %label{for: 'settings_ldap_port'}= t('field_port')
-  = text_field_tag 'settings[ldap_port]', @s.fetch('ldap_port', ""), :required => true
-%p
-  %label{for: 'settings_ldap_account'}= t('field_account')
-  = text_field_tag  'settings[ldap_account]', @s.fetch('ldap_account', ""), :required => true
-%p
-  %label{for: 'settings_ldap_password'}= t('field_password')
-  = password_field_tag 'settings[ldap_password]', nil, size: 25, :required => true
-%p
-  %label BaseDN
-  = text_field_tag  'settings[ldap_basedn]', @s.fetch('ldap_basedn', "")
-%p
-  %label{for: 'settings_ldap_password'}= t('field_auth_source_ldap_filter')
-  = text_area_tag 'settings[ldap_filter]', @s.fetch('ldap_filter', " "), :size => 60
+  %label{for: 'settings_ldap_use'}= t('label_ldap_use')
+  = hidden_field_tag 'settings[ldap_use]', 0
+  = check_box_tag 'settings[ldap_use]', 1, (@settings['ldap_use'].to_i == 1 ? true : false), :id => 'ldap_use_checkbox'
 
+#ldap-group
+  %h3
+    =t('label_ldap_setting')
 
+  %p
+    %label{for: 'settings_ldap_host'}= t('label_ldap_host')
+    = text_field_tag 'settings[ldap_host]', @settings.fetch('ldap_host', ""), :required => true
+  %p
+    %label{for: 'settings_ldap_port'}= t('field_port')
+    = text_field_tag 'settings[ldap_port]', @settings.fetch('ldap_port', ""), :required => true
+  %p
+    %label{for: 'settings_ldap_account'}= t('field_account')
+    = text_field_tag  'settings[ldap_account]', settings.fetch('ldap_account', ""), :required => true
+  %p
+    %label{for: 'settings_ldap_password'}= t('field_password')
+    = password_field_tag 'settings[ldap_password]', nil, size: 25, :required => true
+  %p
+    %label BaseDN
+    = text_field_tag  'settings[ldap_basedn]', @settings.fetch('ldap_basedn', "")
+  %p
+    %label{for: 'settings_ldap_password'}= t('field_auth_source_ldap_filter')
+    = text_area_tag 'settings[ldap_filter]', @settings.fetch('ldap_filter', " "), :size => 60
 
-
-
-
+:javascript
+  if ($("#ldap_use_checkbox[type = 'checkbox']").prop('checked')){
+    $('#ldap-group :input').prop("disabled", false);
+    $('#ldap-group').show();
+  }
+  else{
+    $('#ldap-group :input').prop("disabled", true);
+    $('#ldap-group').hide();
+  }
+  $("#ldap_use_checkbox[type = 'checkbox']").change(function(){
+    if ($("#ldap_use_checkbox[type = 'checkbox']").prop('checked')){
+      $('#ldap-group :input').prop("disabled", false);
+      $('#ldap-group').show();
+    }
+    else{
+      $('#ldap-group :input').prop("disabled", true);
+      $('#ldap-group').hide();
+    }
+  })
 
