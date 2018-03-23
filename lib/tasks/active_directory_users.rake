@@ -25,8 +25,12 @@ namespace :redmine do
     end
 
     users.each do |user|
-      ActiveDirectoryUser.create(user)
+      if ar_user = ActiveDirectoryUser.find_by(user_id: user[:user_id])
+        ar_user.attributes = user
+        ar_user.save if ar_user.changed?
+      else
+        ActiveDirectoryUser.create(user)
+      end
     end
-
   end
 end
