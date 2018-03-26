@@ -1,5 +1,5 @@
 ## redmine-plugin-send_notification
-This is [Redmine](https://www.redmine.org) plugin. Plugin adds the recipient email field to the issue form and allows you to send notifications about changes in the issue status to the addresses specified in this field. E-mail addresses can be separated by characters ",", ":", ";" or space. Emails are sent if the issue is confirmed, the issue is completed, or the start date or due date has changed during the issue execution.
+This is [Redmine](https://www.redmine.org) plugin. Plugin adds the recipient email field to the issue form and allows you to send notifications about changes in the issue status to the addresses specified in this field. E-mail addresses can be separated by characters ",", ":", ";" or space. Emails are sent if the issue is confirmed, the issue is completed, or the start date or due date has changed during the issue execution. Add ldap support/
 
 ## Installation
 1. Create directory your_redmine_base/plugins/send_notification.
