@@ -52,20 +52,16 @@
 :javascript
   if ($("#ldap_use_checkbox[type = 'checkbox']").prop('checked')){
     $('#ldap-group :input').prop("disabled", false);
-    $('#ldap-group').show();
   }
   else{
     $('#ldap-group :input').prop("disabled", true);
-    $('#ldap-group').hide();
   }
   $("#ldap_use_checkbox[type = 'checkbox']").change(function(){
     if ($("#ldap_use_checkbox[type = 'checkbox']").prop('checked')){
       $('#ldap-group :input').prop("disabled", false);
-      $('#ldap-group').show();
     }
     else{
       $('#ldap-group :input').prop("disabled", true);
-      $('#ldap-group').hide();
     }
   })
 
