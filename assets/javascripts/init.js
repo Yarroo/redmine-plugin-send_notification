@@ -1,1 +1,1 @@
-$('.recipient_email_multiple_select').select2();
+$('.recipient_email_select').select2();
