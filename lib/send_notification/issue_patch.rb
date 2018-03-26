@@ -28,21 +28,20 @@ module SendNotification
 
         def issue_status_confirmed?
           issue_status_confirmed_id = Setting.plugin_send_notification["issue_status_confirmed_id"].to_i
-          (notify? && (status_id_changed? && status_id == issue_status_confirmed_id)) || false
+          notify? && status_id_changed? && status_id == issue_status_confirmed_id
         end
 
         def issue_status_completed?
           issue_status_completed_id = Setting.plugin_send_notification["issue_status_completed_id"].to_i
-          notify? && (status_id_changed? && status_id == issue_status_completed_id) || false
+          notify? && status_id_changed? && status_id == issue_status_completed_id
         end
 
         def issue_change_dates?
           issue_status_confirmed_id = Setting.plugin_send_notification["issue_status_confirmed_id"].to_i
           issue_status_in_work_id = Setting.plugin_send_notification["issue_status_in_work_id"].to_i
           issue_status_in_stop_id = Setting.plugin_send_notification["issue_status_in_stop_id"].to_i
-          (notify? && (start_date_changed? || due_date_changed?) &&
-              (status_id == issue_status_confirmed_id || status_id == issue_status_in_work_id || status_id == issue_status_in_stop_id)
-          ) || false
+          notify? && (start_date_changed? || due_date_changed?) &&
+              status_id.in?([issue_status_confirmed_id, issue_status_in_work_id, issue_status_in_stop_id])
         end
       end
     end
