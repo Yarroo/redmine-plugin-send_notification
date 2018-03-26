@@ -11,8 +11,8 @@ Redmine::Plugin.register :send_notification do
   name 'Send Notification plugin'
   author 'Sergey Vershinin'
   description 'This is a plugin for Redmine'
-  version '0.0.2'
-  url 'http://example.com/path/to/plugin'
+  version '0.0.3'
+  url 'https://www.redmine.org/plugins/send_notification'
   author_url 'https://github.com/Yarroo'
   requires_redmine version_or_higher: '3.4'
 
