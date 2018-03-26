@@ -2,10 +2,11 @@ require 'net/ldap'
 
 namespace :redmine do
   task active_directory_users: :environment do
+    abort if Setting.plugin_send_notification['ldap_use'].zero?
     ldap = Net::LDAP.new host: Setting.plugin_send_notification['ldap_host'].strip,
                          port: Setting.plugin_send_notification['ldap_port'].strip,
                          base: Setting.plugin_send_notification['ldap_basedn'].strip,
-                         :auth => {
+                         auth: {
                              method:  :simple,
                              username: Setting.plugin_send_notification['ldap_account'].strip,
                              password: Setting.plugin_send_notification['ldap_password'].strip
