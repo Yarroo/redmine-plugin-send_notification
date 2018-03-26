@@ -24,8 +24,11 @@ namespace :redmine do
       users << user
     end
 
+    db_users = ActiveDirectoryUser.all
+    db_users_index = db_users.index_by(&:user_id)
+
     users.each do |user|
-      if ar_user = ActiveDirectoryUser.find_by(user_id: user[:user_id])
+      if ar_user = db_users_index[user[:user_id]]
         ar_user.attributes = user
         ar_user.save if ar_user.changed?
       else
