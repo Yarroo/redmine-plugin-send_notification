@@ -4,7 +4,7 @@
       <% ldap_use = Setting.plugin_send_notification["ldap_use"] %>
       <% if ldap_use.to_i == 1%>
         <p><%= f.select :recipient_email,
-                        options_from_collection_for_select(ActiveDirectoryUser.all, :mail, :display_name, TechMailer.extract_email_to_array(@issue.recipient_email)),{},
+                        options_from_collection_for_select(ActiveDirectoryUser.order(:display_name).all, :mail, :display_name, TechMailer.extract_email_to_array(@issue.recipient_email)),{},
                         {class: "recipient_email_select", multiple: true, size: 255}
         %></p>
       <% else %>
