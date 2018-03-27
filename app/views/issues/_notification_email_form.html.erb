@@ -7,11 +7,11 @@
                         options_from_collection_for_select(ActiveDirectoryUser.order(:display_name).all, :mail, :display_name, TechMailer.extract_email_to_array(@issue.recipient_email)),{},
                         {class: "recipient_email_select", multiple: true, size: 255}
         %></p>
+        <%= javascript_include_tag 'init.js', plugin: :send_notification %>
+        <%= stylesheet_link_tag 'recipient_email.css', plugin: :send_notification %>
       <% else %>
         <p><%= f.text_field :recipient_email, :size => 80, class: "recipient_email_select" %></p>
       <% end %>
     <% end %>
   </div>
 <% end %>
-<%= javascript_include_tag 'init.js', plugin: :send_notification %>
-<%= stylesheet_link_tag 'recipient_email.css', plugin: :send_notification %>
