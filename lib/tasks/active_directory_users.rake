@@ -13,11 +13,14 @@ namespace :redmine do
                          }
 
 
-    result_attrs = %w[employeeNumber sAMAccountName displayName mail department]
+    result_attrs = %w[sAMAccountName displayName mail department]
+    user_id_field = Setting.plugin_send_notification['ldap_user_id_field'].strip
+    result_attrs << user_id_field
+    result_attrs.uniq!(&:downcase)
     search_filter = Net::LDAP::Filter.construct(Setting.plugin_send_notification['ldap_filter'])
     users = []
     ldap.search(filter: search_filter, attributes: result_attrs) do |item|
-      user = { user_id: item.employeeNumber.first,
+      user = { user_id: item.send(user_id_field).first,
                sam_account_name: item.sAMAccountName.first,
                display_name: item.displayName.first.to_s.force_encoding('UTF-8'),
                mail: item.mail.first,

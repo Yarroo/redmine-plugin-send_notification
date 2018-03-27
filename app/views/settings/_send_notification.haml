@@ -38,7 +38,7 @@
     = text_field_tag 'settings[ldap_port]', @settings.fetch('ldap_port', ""), :required => true
   %p
     %label{for: 'settings_ldap_account'}= t('field_account')
-    = text_field_tag  'settings[ldap_account]', settings.fetch('ldap_account', ""), :required => true
+    = text_field_tag  'settings[ldap_account]', @settings.fetch('ldap_account', ""), :required => true
   %p
     %label{for: 'settings_ldap_password'}= t('field_password')
     = password_field_tag 'settings[ldap_password]', nil, size: 25, :required => true
@@ -48,6 +48,9 @@
   %p
     %label{for: 'settings_ldap_password'}= t('field_auth_source_ldap_filter')
     = text_area_tag 'settings[ldap_filter]', @settings.fetch('ldap_filter', " "), :size => 60
+  %p
+    %label{for: 'settings_ldap_user_id_field'}= t('label_ldap_user_id')
+    = text_field_tag  'settings[ldap_user_id_field]', @settings.fetch('ldap_user_id_field', " "), :required => true
 
 :javascript
   if ($("#ldap_use_checkbox[type = 'checkbox']").prop('checked')){

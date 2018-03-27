@@ -10,6 +10,7 @@ ru:
   label_ldap_setting: Настройки LDAP
   label_ldap_use: Использовать LDAP
   label_ldap_host: Сервер LDAP
+  label_ldap_user_id: Поле LDAP для УИД пользователя
 
   email_body_subject_issue_confirmed: Задача включена в план
   email_body_subject_issuen_change: Плановые сроки выполнения задачи изменились
