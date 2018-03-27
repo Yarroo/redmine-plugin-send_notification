@@ -1,6 +1,6 @@
 # redmine-plugin-send_notification
 ## Description
-This is [Redmine](https://www.redmine.org) plugin. Plugin adds the recipient email field to the issue form and allows you to send notifications about changes in the issue status to the addresses specified in this field. Emails are sent if the issue is confirmed, the issue is completed, or the start date or due date has changed during the issue execution. Plugin may work with LDAP.
+This is [Redmine](https://www.redmine.org) plugin. Plugin adds the recipient email field to the issue form and allows you to send notifications about changes in the issue status to the addresses specified in this field. Emails are sent if the issue is confirmed, the issue is completed, or the start date or due date has changed during the issue execution. Plugin may work with LDAP(add recipient email by user name). 
 
 ## Installation
 
@@ -18,7 +18,7 @@ This is [Redmine](https://www.redmine.org) plugin. Plugin adds the recipient ema
 
 ### Global settings
 
-- The send_notification plugin needs to know which issue status is considered as "confirmed", "complited", "in progress" and "suspended"(own status which means that performance on the issue is suspended, but still execute) in your redmine installation. This behaviour must be configured in your redmine installation: Administration --> Plugins --> Send notification plugin --> Configure.
+- The send_notification plugin needs to know which issue status is considered as "confirmed", "complited", "in progress" and "suspended"(own status which means that working on the issue is suspended) in your redmine installation. This setting must be configured in your redmine installation: Administration --> Plugins --> Send notification plugin --> Configure.
  
 
 ### LDAP settings
@@ -27,17 +27,17 @@ This is [Redmine](https://www.redmine.org) plugin. Plugin adds the recipient ema
 - In LDAP settings you should set:  
     - LDAP host(example: ldap-server)
     - port(example: 389)
-    - user name with read LDAP right
+    - user name with read LDAP permission
     - user password
     - BaseDN(CN=Users,DC=company,DC=com)
-    - LDAP field name that will be use as unique identifier in database table
+    - LDAP field name that will be used as unique identifier in database table
     
 - You may add some filter to search in LDAP in "ldap filter" field. Search filters enable you to define search criteria and provide more efficient and effective searches. Field supports the LDAP search filters as defined in RFC2254. Syntax and example you may look [Here](https://social.technet.microsoft.com/wiki/contents/articles/5392.active-directory-ldap-syntax-filters.aspx).          
 - To load data from LDAP you should run rake task:
     ```ruby
         bundle exec rake redmine:active_directory_users RAILS_ENV=production
     ```
-    For synchronization you may set up a Cron job.
+    For synchronization you could set up a Cron job.
 
 
 ## Usage
