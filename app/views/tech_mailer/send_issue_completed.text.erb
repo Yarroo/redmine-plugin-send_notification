@@ -2,8 +2,10 @@
 
 <%= l(:email_body_issue_completed_header, id: @issue.id, subject: @issue.subject)%>.
 
-<% if @issue.start_date? && @issue.due_date? && (@issue.disabled_core_fields & %w(start_date due_date)).empty? %>
-<%= l(:email_body_issue_start_date)%>: <%= format_date(@issue.start_date) %>
-<%= l(:email_body_issue_due_date)%>: <%= format_date(@issue.due_date) %>
+<% if @issue.start_date? && (@issue.disabled_core_fields & %w(start_date)).empty? %>
+  <%= l(:email_body_issue_start_date)%>: <%= format_date(@issue.start_date) %>
+<% end %>
+<% if @issue.due_date? && (@issue.disabled_core_fields & %w(due_date)).empty? %>
+  <%= l(:email_body_issue_due_date)%>: <%= format_date(@issue.due_date) %>
 <% end %>
 
